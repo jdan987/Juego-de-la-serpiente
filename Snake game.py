@@ -2,7 +2,7 @@ import turtle
 import time
 import random
 
-retraso = 0.1 #Velocidad de movimiento
+retraso = 0.1 # speed snake
 marcador = 0
 marcador_alto = 0
 
@@ -12,7 +12,7 @@ s.setup(650,650) #'tup' de tupla
 s.bgcolor('gray')
 s.title("Proyecto Serpiente")
 
-#Programamos a la serpiente
+#We make the Snake´s code
 serpiente = turtle.Turtle()
 serpiente.speed(1)
 serpiente.shape("square")
@@ -28,7 +28,7 @@ comida.penup()
 comida.goto(0,100)
 
 cuerpo = []
-#Esto es el marcador:
+#This is the scoreboard
 texto = turtle.Turtle()
 texto.speed(0)
 texto.color('black')
@@ -36,7 +36,7 @@ texto.penup()
 texto.hideturtle()
 texto.goto(0,-260)
 texto.write("Marcador: 0\tMarcador más alto: 0", align='center', font=('verdana', 24, 'normal'))
-#Movimiento de la serpiente:
+#Snake movements
 def arriba():
     serpiente.direction = 'up'
 def abajo():
@@ -46,7 +46,7 @@ def izquierda():
 def derecha():
     serpiente.direction = 'right'
 
-#Funciones del movimiento:
+#We program the movements
 
 def movimiento():
     if serpiente.direction == 'up':
@@ -63,15 +63,15 @@ def movimiento():
         x = serpiente.xcor()
         serpiente.setx(x + 20)
 
-s.listen() #La pantalla escucha y ejecuta una función.
-s.onkeypress(arriba, 'Up') #La pantalla recibe teclas
+s.listen() #The screen listens and executes the function
+s.onkeypress(arriba, 'Up') #programmed keys
 s.onkeypress(abajo, 'Down')
 s.onkeypress(izquierda, 'Left')
 s.onkeypress(derecha, 'Right')
 while True:
-    s.update() #actualiza la pantalla mostrando a la serpiente moviendose
+    s.update() #Update the screen and show the movement 
     
-    #Esto es para definir que cuando la serpiente toque un borde del plano cartesiano, pierda automáticamente
+    #This is to define that when the snake touches an edge of the Cartesian plane, it automatically loses
     if serpiente.xcor() > 300 or serpiente.xcor() < -300 or serpiente.ycor() > 300 or serpiente.ycor() < -300:
         time.sleep(2)
         for i in cuerpo:
@@ -88,9 +88,9 @@ while True:
    
    
    
-    if serpiente.distance(comida) < 20: #se pone '20' porque es el tamaño por defecto de la serpiente. así se marcau na hitbox más específica
-        x = random.randint(-250,250) #Cuando la comdida es tocada por la serpiente esta se va a mover a un punto aleatorio en estas coordenadas
-        y = random.randint(-250,250) #En ambos ejes ocurre
+    if serpiente.distance(comida) < 20: #'20' is set because it's the snake's default size. This way, a more specific hitbox is marked.
+        x = random.randint(-250,250) #When the food is touched by the snake it will move to a random point at these coordinates
+        y = random.randint(-250,250) #It occurs on both axes
         comida.goto(x,y)
         
         nuevo_cuerpo = turtle.Turtle()
@@ -106,7 +106,7 @@ while True:
             texto.clear()
             texto.write("Marcador: {}\tMarcador más alto: {}".format(marcador, marcador_alto), align='center', font=("verdana", 24, 'normal'))
         
-#Multiplicador del cuerpo
+#Body multiplier
     total = len(cuerpo)
     for i in range(len(cuerpo)-1,0,-1):
         x = cuerpo[i-1].xcor()
@@ -119,7 +119,7 @@ while True:
         cuerpo[0].goto(x,y)
 
     movimiento()
-#Aquí estamos haciendo que la serpiente al tocarse a sí misma pierda 
+#Here we are making the snake lose its touch 
     for i in cuerpo:
         if i.distance(serpiente) < 20:
             for i in cuerpo:
@@ -131,13 +131,4 @@ while True:
             
     
     time.sleep(retraso) #'Sleep' es un elemento de 'time'
-
-
-
-
-
-
-
-
-
 turtle.done()
